@@ -1,2 +1,2 @@
 # python-join
-join two files on specified key
+Join lines from two files on common key
