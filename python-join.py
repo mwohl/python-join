@@ -25,28 +25,39 @@ def get_arguments():
     left_index = args.left_key - 1
   else:
     left_index = 0
-  print("left_index: "+str(left_index))
 
   if args.right_key:
     right_index = args.right_key - 1
   else:
     right_index = 0
-  print("right_index: "+str(right_index))
 
   return left_file, right_file, left_index, right_index  
 
-def get_left_keys(infile, key_index):
-  left_keys = []
-  return left_keys  
+def get_keys(infile, key_index):
+  keys = []
+  with open(infile) as f:
+    for line in f:
+      clean_line = line.rstrip('\n')
+      line_list = clean_line.split(" ")
+      keys.append(line_list[key_index])
+  return keys
 
-def get_joint_keys(key_list, key_index, infile):
+def get_joint_keys(comparison_key_list, infile, key_index):
   joint_keys = []
+  with open(infile) as f:
+    for line in f:
+      clean_line = line.rstrip('\n')
+      line_list = clean_line.split(" ")
+      if line_list[key_index] in comparison_key_list:
+        joint_keys.append(line_list[key_index])
   return joint_keys
 
 def main(): 
   left_file, right_file, left_index, right_index = get_arguments()
-  left_keys = get_left_keys(left_file, left_index)
-  joint_keys = get_joint_keys(left_keys, right_index, right_file)
+  left_keys = get_keys(left_file, left_index)
+  print(left_keys)
+  joint_keys = get_joint_keys(left_keys, right_file, right_index)
+  print(joint_keys)
 
 if __name__ == "__main__":
   main()
