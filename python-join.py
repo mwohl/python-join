@@ -71,7 +71,7 @@ def get_left_and_joint_output(left_file, right_file, left_index, right_index, jo
               right_line_list.pop(right_index)
               for right_item in right_line_list:
                 out.append(right_item)
-      print(out)
+      print(' '.join(out))
 
 def get_right_output(right_file, right_index, joint_keys): 
   with open(right_file) as f:
@@ -84,8 +84,7 @@ def get_right_output(right_file, right_index, joint_keys):
         out.append(key)
         for item in line_list:
           out.append(item)
-        print(out)
-
+        print(' '.join(out))
 
 def main(): 
   left_file, right_file, left_index, right_index = get_arguments()
