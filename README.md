@@ -20,7 +20,9 @@ export PATH="$PATH:/path/to/installation"
 
 then reload your profile:
 
-``` source ~/.profile` or `source ~/.bashrc```
+``` source ~/.profile```
+or
+```source ~/.bashrc```
 
 On Windows systems, modify the user's PATH environment variable through **Control Panel** > **System** > **Advanced system settings** > **Environment Variables**.
 
