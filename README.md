@@ -1,5 +1,5 @@
 # python-join
-#### Join lines from two files on common key
+Join lines from two files on common key
 
 ## Requirements:
 Python >= 3.5
