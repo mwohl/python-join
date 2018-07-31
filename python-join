@@ -1,5 +1,23 @@
 #!/usr/bin/env python3
 
+#  Purpose:
+#    This program joins lines from two user-input files based on a common key, where the key is assumed to be the first value on each line unless otherwise specified by the user at invocation.
+#  Overview of main algorithm:
+#    The main algorithm takes a list of keys that have been found to exist in both input files.
+#    It then goes through the first file one line at a time, taking the key from each line and appending it to an output list, followed by the remaining values of that line. 
+#    Then, if the key is in the joint keys list, it searches through the second file to find the line with the matching key and appends the values of that line to the output list.
+#    The output list is then converted to a space-separated string and output.
+#    The algorithm then goes through the second file one line at a time.
+#    If the key is NOT in the joint keys list, it then outputs that line in the same way it did with lines from the first file and shared-key lines from the second file.
+#  Algorithm efficiency:
+#    The time complexity of the main algorithm is O(nm) where n is the length of the first file and m is the length of the second file.
+#    The algorithm works for input files that do not fit into memory, as it only accesses one line of each file at a time. 
+#    It is possible, for extremely large input files, that the lists of keys that the algorithm constructs could become very large.  If this became an issue, we could write the keys to a file and access it one line at a time rather than hold it all in memory.
+#  Assumptions;
+#    -Input files comform to the "accepted input" description in README.md
+#    -Within an input file, no keys are repeated.
+
+
 import sys
 import os.path
 import argparse
