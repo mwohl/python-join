@@ -13,7 +13,6 @@ git clone https://github.com/mwohl/python-join.git
 
 Add the installation directory to your $PATH environment variable.  
   On Linux/Unix systems, add the following line to your ~/.profile or ~/.bashrc file:
-
     ``` 
     export PATH="$PATH:/path/to/installation"
     ```
