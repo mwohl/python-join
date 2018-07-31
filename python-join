@@ -4,23 +4,25 @@ import sys
 import os.path
 import argparse
 
-def get_arguments():
-  # Accept command line arguments
+def parse_command_line_arguments():
   parser = argparse.ArgumentParser()
   parser.add_argument("left_file", help="name of file to be used as left file in key join")
   parser.add_argument("right_file", help="name of file to be used as right file in key join")
   parser.add_argument("--left-key", help="index to use as key in left file", type=int)
   parser.add_argument("--right-key", help="index to use as key in right file", type=int)
   args = parser.parse_args()
+  return args
 
+def validate_input_files(args):
   # Check that first two positional arguments are indeed files
   if os.path.isfile(args.left_file) and os.path.isfile(args.right_file):
     left_file = args.left_file
     right_file = args.right_file
-  else:
+    return left_file, right_file
+  else: 
     sys.stderr.write("Input files not found.\n")
-
-  # Check for optional arguments and set indexes accordingly
+    
+def set_key_indices(args):
   if args.left_key:
     left_index = args.left_key - 1
   else:
@@ -31,32 +33,42 @@ def get_arguments():
   else:
     right_index = 0
 
-  return left_file, right_file, left_index, right_index  
+  return left_index, right_index 
+
+def line_to_list(line):
+  clean_line = line.rstrip('\n')
+  line_list = clean_line.split(" ")
+  return line_list
 
 def get_keys(infile, key_index):
   keys = []
   with open(infile) as f:
     for line in f:
-      clean_line = line.rstrip('\n')
-      line_list = clean_line.split(" ")
-      keys.append(line_list[key_index])
+      line_list = line_to_list(line)
+      try:
+        keys.append(line_list[key_index])
+      except IndexError:
+        print("\nThe index value provided is not valid -- please choose a value that does not exceed the length of the shortest line in "+infile+".\n")
+        raise
   return keys
 
 def get_joint_keys(comparison_key_list, infile, key_index):
   joint_keys = []
   with open(infile) as f:
     for line in f:
-      clean_line = line.rstrip('\n')
-      line_list = clean_line.split(" ")
-      if line_list[key_index] in comparison_key_list:
-        joint_keys.append(line_list[key_index])
+      line_list = line_to_list(line)
+      try:
+        if line_list[key_index] in comparison_key_list:
+          joint_keys.append(line_list[key_index])
+      except IndexError:
+        print("\nThe index value provided is not valid -- please choose a value that does not exceed the length of the shortest line in "+infile+".\n")
+        raise
   return joint_keys
 
-def get_left_and_joint_output(left_file, right_file, left_index, right_index, joint_keys):
+def generate_output(left_file, right_file, left_index, right_index, joint_keys):
   with open(left_file) as lf:
     for line in lf:
-      clean_line = line.rstrip('\n')
-      line_list = clean_line.split(" ")
+      line_list = line_to_list(line)
       key = line_list.pop(left_index)
       out = []
       out.append(key)
@@ -65,19 +77,15 @@ def get_left_and_joint_output(left_file, right_file, left_index, right_index, jo
       if key in joint_keys:
         with open(right_file) as rf:
           for right_line in rf:
-            right_clean_line = right_line.rstrip('\n')
-            right_line_list = right_clean_line.split(" ")
+            right_line_list = line_to_list(right_line)
             if right_line_list[right_index] == key:
               right_line_list.pop(right_index)
               for right_item in right_line_list:
                 out.append(right_item)
       print(' '.join(out))
-
-def get_right_output(right_file, right_index, joint_keys): 
   with open(right_file) as f:
     for line in f:
-      clean_line = line.rstrip('\n')
-      line_list = clean_line.split(" ")
+      line_list = line_to_list(line)
       key = line_list.pop(right_index)
       if key not in joint_keys:
         out = []
@@ -86,13 +94,17 @@ def get_right_output(right_file, right_index, joint_keys):
           out.append(item)
         print(' '.join(out))
 
-def main(): 
-  left_file, right_file, left_index, right_index = get_arguments()
+def main():
+  # Collect and validate input
+  args = parse_command_line_arguments()
+  left_file, right_file = validate_input_files(args)
+  left_index, right_index = set_key_indices(args)  
+
+  # Determine keys that are common between both input files
   left_keys = get_keys(left_file, left_index)
   joint_keys = get_joint_keys(left_keys, right_file, right_index)
 
-  get_left_and_joint_output(left_file, right_file, left_index, right_index, joint_keys)
-  get_right_output(right_file, right_index, joint_keys)
+  generate_output(left_file, right_file, left_index, right_index, joint_keys)
 
 if __name__ == "__main__":
   main()
