@@ -28,7 +28,8 @@ optional arguments:
   -h, --help            show this help message and exit
   --left-key LEFT_KEY   index to use as key in left file
   --right-key RIGHT_KEY
-                        index to use as key in right file```
+                        index to use as key in right file
+```
 
 ## Example:
 ``` python-join a.txt b.txt```
