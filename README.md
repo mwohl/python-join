@@ -6,18 +6,31 @@ Python >= 3.5
 
 ## Installation/Configuration:
 Clone the GitHub repository:
-``` git clone https://github.com/mwohl/python-join.git```
+
+``` 
+git clone https://github.com/mwohl/python-join.git
+```
 
 Add the installation directory to your $PATH environment variable.  On Linux/Unix systems, add the following line to your ~/.profile or ~/.bashrc file:
-``` export PATH="$PATH:/path/to/installation"```
+
+``` 
+export PATH="$PATH:/path/to/installation"
+```
 
 then reload your profile:
-``` source ~/.profile```
+
+``` 
+source ~/.profile
+```
 or
-``` source ~/.bashrc```
+
+``` 
+source ~/.bashrc
+```
 
 ## Usage:
-``` usage: python-join [-h] [--left-key LEFT_KEY] [--right-key RIGHT_KEY]
+``` 
+usage: python-join [-h] [--left-key LEFT_KEY] [--right-key RIGHT_KEY]
                    left_file right_file
 
 positional arguments:
@@ -32,8 +45,10 @@ optional arguments:
 ```
 
 ## Example:
-``` python-join a.txt b.txt```
+``` 
+python-join a.txt b.txt
+```
 
 ## Accepted Input Files:
-Text files with whitespace-separated values, containing 7-bit ascii bytes only, with lines ending in newline character \n
+Text files with whitespace-separated values, containing 7-bit ascii bytes only, with lines ending in newline character.
 
