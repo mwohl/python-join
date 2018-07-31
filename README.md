@@ -12,15 +12,16 @@ git clone https://github.com/mwohl/python-join.git
 ```
 
 Add the installation directory to your $PATH environment variable.  
-  On Linux/Unix systems, add the following line to your ~/.profile or ~/.bashrc file:
-    ``` 
-    export PATH="$PATH:/path/to/installation"
-    ```
+On Linux/Unix systems, add the following line to your ~/.profile or ~/.bashrc file:
+    
+``` 
+export PATH="$PATH:/path/to/installation"
+```
 
-    then reload your profile:
+then reload your profile:
 
-    ` source ~/.profile` or `source ~/.bashrc`
-  On Windows systems, modify the user's PATH environment variable through **Control Panel** > **System** > **Advanced system settings** > **Environment Variables**.
+` source ~/.profile` or `source ~/.bashrc`
+On Windows systems, modify the user's PATH environment variable through **Control Panel** > **System** > **Advanced system settings** > **Environment Variables**.
 
 ## Usage:
 ``` 
